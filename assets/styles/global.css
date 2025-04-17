@@ -1,0 +1,21 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+image {
+    width: 100%;
+}
+.main-menu-name {
+    cursor: pointer;
+
+    display: inline-block
+}
+.main-menu-name:hover {
+    text-decoration: underline;
+}
+.main-menu-button:last-child .main-menu-name {
+    cursor: default;
+}
+.main-menu-button:last-child .main-menu-name:hover {
+    text-decoration: none;
+}

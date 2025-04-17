@@ -1,0 +1,20 @@
+export const itemColors = {
+    "Color": "#ffffff",
+    "Dark Grey": "#2E2E2E",
+    "Forest Night": "#2C3E2F",
+    "Blue / Grey": "#6D7B8D",
+    "Blue": "#1E3A8A",
+    "Silver Mink": "#A5A49C",
+    "Potting Soil": "#5B3A29",
+    "Green": "#3B7A57",
+    "black": "#000000",
+    "Black": "#000000",
+    "Brown": "#8B4513",
+    "Dark Earth": "#3E2C1C",
+    "Chili": "#B94E48",
+    "Red": "#B91C1C",
+    "Blue Heaven": "#6699CC",
+    "Silver": "#C0C0C0",
+    "Grey": "#808080",
+    "Light Grey": "#D3D3D3"
+}
