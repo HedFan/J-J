@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "mini-signals": ["./node_modules/resource-loader/typings/mini-signals.d.ts"]
+    },
+    "skipLibCheck": true,
+    "lib": ["dom", "ESNext", "WebWorker"]
+  },
+  "outDir": "dist",
+  "include": ["./src/index.ts", "src/**/*.d.ts"]
+}
