@@ -81,7 +81,7 @@ bun run preview
 #### Things that could be added or improved (just a few, as there’s always room for improvement):
 - Add BlurHash for optimized image placeholders (faster perceived loading);
 - Integrate SCSS (or similar preprocessor) for better structure, especially as custom styles grow;
-- Consider rearranging the product list to avoid empty gaps when promotional items are inserted;
+- Consider rearranging the product list to avoid empty gaps when promotional items are inserted (fixed);
 - Add useful content to the footer (links, company info, contact details, etc);
 - Implement a language selector (for english and for danish - right now it's mix of languages, but main data that's taking from json file is on Danish);
 - Add shopping cart logic, including stock calculation for available items;

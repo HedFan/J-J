@@ -1,7 +1,9 @@
 <template>
   <div v-for="(product, index) in filteredProducts"
        :key="product.id"
-       :class="['shadow-md h-full', getItemClass(product.type)]"
+       :class="{'col-span-1 row-span-1' : product.name || (product.type && product.type === '1x1')}"
+       :style="getGridStyle(index, product.type)"
+       class="shadow-md h-full"
   >
 
     <div v-if="product.name && product.id">
@@ -34,10 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watchEffect, onUnmounted } from "vue";
 import { IProducts, IPromotionalSpots, IPromotionalSpotsType } from "../../configs/fetchingDataTypes";
 import { useProducts } from "../../composables/fetchItemsData";
 import { IToggleMenuCategoryData } from "../../configs/globalTypes";
+import { gridLg, gridSm } from "../../configs/globalConfigs";
+
 const { promotionalSpotsData } = useProducts();
 
 const productDataProps = defineProps<{
@@ -77,14 +81,46 @@ const matchingPromo = (position: number): IPromotionalSpots => {
   return promotionalSpotsData.value.find(spot => spot.position === position);
 };
 
-function getItemClass(type?: IPromotionalSpotsType): string {
-  switch (type) {
-    case "2x2":
-      return "col-span-2 row-span-2";
-    case "2x1":
-      return "col-span-2 row-span-1";
-    default:
-      return "col-span-1 row-span-1";
+const rowSize = ref(gridSm);
+
+const gridHandler = (matchMedia: MediaQueryList | MediaQueryListEvent): void => {
+  rowSize.value = matchMedia.matches ? gridLg : gridSm;
+}
+watchEffect(() => {
+  const matchMedia = window.matchMedia("(min-width: 1024px)");
+  gridHandler(matchMedia);
+
+  matchMedia.addEventListener("change", gridHandler);
+
+  onUnmounted(() => {
+    matchMedia.removeEventListener("change", gridHandler);
+  });
+});
+
+function getGridStyle(index: number, type?: IPromotionalSpotsType): Record<string, string | number> {
+  if(!type) {
+    return;
+  }
+
+  const currentRowSize = rowSize.value;
+  const [colSpanStr, rowSpanStr] = type.split("x");
+
+  const colTypeValue = Number(colSpanStr);
+  const rowTypeValue = Number(rowSpanStr);
+
+  const rowStart = Math.floor(index / currentRowSize) + 1;
+  const rowEnd = rowStart + rowTypeValue;
+
+  const colStart = Math.min(Math.floor(index % currentRowSize) + 1, currentRowSize + 1 - colTypeValue);
+  const colEnd = colStart + colTypeValue
+
+  return {
+    '--row-start': rowStart,
+    '--row-end': rowEnd,
+    '--column-start': colStart,
+    '--column-end': colEnd,
+    gridRow: 'var(--row-start) / var(--row-end)',
+    gridColumn: 'var(--column-start) / var(--column-end)'
   }
 }
 </script>
